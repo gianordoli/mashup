@@ -1,14 +1,52 @@
+import processing.pdf.*;
+
 ArrayList<Sub> subs1;
+PFont myFont;
+int mm;
+
+int leading;
 
 void setup() {
-
+    
   subs1 = new ArrayList<Sub>();
 
   String[] stringSubs1 = loadStrings("Gravity.2013.1080p.WEB-DL.H264-PublicHD.srt");
   String[] stringSubs2 = loadStrings("Her.2013.DVDSCR.XviD.MP3-RARBG.srt");
   processSubs(stringSubs2);
+  
+  myFont = createFont("Didot", 8);   
+  mm = 3;
+  leading = 10;
+  int newHeight = (subs1.size() + 2) * leading; 
+  size(210*mm, newHeight);
+  beginRecord(PDF, "her_subs_.pdf");  
+  
+//  debug();
+}
 
-  debug();
+void draw() {  
+  
+  background(255);
+  fill(0);
+  textFont(myFont);
+  
+  int x = leading;
+  int y = leading;
+  
+  for (int i = 0; i < subs1.size(); i++){
+    
+    Sub mySub = subs1.get(i);
+    text(mySub.speech, x, y);
+    y += leading;
+    
+//    if(y > height){
+//      x = 0;
+//      y = leading;
+//    }
+  }
+
+  endRecord();
+  noLoop();
 }
 
 void debug(){
@@ -18,9 +56,6 @@ void debug(){
     println(subs1.get(i).time);
     println(subs1.get(i).speech);    
   }
-}
-
-void draw() {
 }
 
 void processSubs(String[] mySubs) {
