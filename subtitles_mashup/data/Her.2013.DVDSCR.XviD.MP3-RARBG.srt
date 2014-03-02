@@ -1613,6 +1613,7 @@ I want to see .
 I'm going on a date .
 
 362
+00:23:53,118 --> 00:23:54,930
 Cool.
 
 363
@@ -6244,6 +6245,7 @@ to help  you deliver
 01:30:37,431 --> 01:30:40,278
 ... ifyou could , you'll feel no longer
 alone anymore...
+
 1424
 01:30:43,611 --> 01:30:45,423
 You're a beautifhul ...
