@@ -8,15 +8,15 @@ void setup() {
   String[] stringSubs2 = loadStrings("Her.2013.DVDSCR.XviD.MP3-RARBG.srt");
   processSubs(stringSubs2);
 
+  debug();
+}
+
+void debug(){
   for (int i = 0; i < subs1.size(); i++) {
-//    println("-----------------");    
-//    println(subs1.get(i).index);
+    println("-----------------");    
+    println(subs1.get(i).index);
     println(subs1.get(i).time);
-//    println(subs1.get(i).speech);    
-//    println(subs1.get(i).time.length());
-//    if (subs1.get(i).time.length() < 29) {
-//      println("-------------------------------------------------------> oi");
-//    }
+    println(subs1.get(i).speech);    
   }
 }
 
@@ -34,8 +34,8 @@ void processSubs(String[] mySubs) {
     i++;
 
     //2 - Subtitle time    
-    String time = mySubs[i];
-    time = toSeconds(time);
+//    String time = mySubs[i];
+    int time = toSeconds(mySubs[i]);
     i++;
 
     String speech = mySubs[i];
@@ -57,8 +57,14 @@ void processSubs(String[] mySubs) {
   }
 }
 
-String toSeconds(String myTime) {
+int toSeconds(String myTime) {
   myTime = myTime.substring(0, 8);
-  return myTime;
+  int hours = parseInt(myTime.substring(0, 2));
+  int minutes = parseInt(myTime.substring(3, 5));
+  int seconds = parseInt(myTime.substring(6, 8));
+//  myTime = "h: " + hours + ", min: " + minutes + ", s: " + seconds;
+  seconds += (60 * minutes) + (3600 * hours);
+//  println(myTime);
+  return seconds;
 }
 
