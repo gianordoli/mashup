@@ -6,10 +6,13 @@ PFont italic;
 int mm;
 int leading;
 
+int pageNumber;
+int totalHeight;
+
+
 void setup() {
-  
-  colorMode(HSB);
-  println(PFont.list());
+ 
+//  println(PFont.list());
     
   subs = new ArrayList<Sub>();
 
@@ -20,13 +23,16 @@ void setup() {
   processSubs("weird_science", stringSubs1);  
   processSubs("her", stringSubs2);
   
-  regular = createFont("Didot", 8);
-  italic = createFont("Didot-Italic", 8);  
-  mm = 3;  
-  leading = 12;
-  int newHeight = (subs.size() + 2) * leading; 
-  size(210*mm, newHeight);
-  beginRecord(PDF, "her_weird_science_2.pdf");  
+  regular = createFont("Didot", 16);
+  italic = createFont("Didot-Italic", 16);  
+  mm = 6;  
+  pageNumber = 1;
+  leading = 24;
+  totalHeight = (subs.size() + 2) * leading; 
+  size(145*mm, 210*mm);
+  beginRecord(PDF, "her_weird_science_page_" + pageNumber + ".pdf");
+
+  colorMode(HSB);  
   
   mapPos();
   
@@ -35,15 +41,16 @@ void setup() {
 void draw() {  
   
   background(255);
-    
-  for (int i = 0; i < subs.size(); i++){
+
+  for(int i = 0; i < subs.size(); i++){
     Sub mySub = subs.get(i);
-//    println(mySub.pos.x);
-//    println(mySub.index);
-    mySub.display();
-  }
-  noLoop();
-  endRecord();
+    if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
+      pushMatrix();
+        translate(0, - height * (pageNumber - 1));
+          mySub.display();
+      popMatrix();
+    }
+  }  
 }
 
 void mapPos(){
@@ -52,7 +59,7 @@ void mapPos(){
     Sub mySub = subs.get(i);
     PVector currPos = new PVector(0, map(mySub.time,
                                       subs.get(0).time, subs.get(subs.size()-1).time,
-                                      0, height));
+                                      0, totalHeight));
     mySub.setPos(currPos);    
   }
 }
@@ -109,5 +116,26 @@ int toSeconds(String myTime) {
   seconds += (60 * minutes) + (3600 * hours);
 //  println(myTime);
   return seconds;
+}
+
+void keyPressed(){
+  if(key == CODED){    
+    if(keyCode == LEFT || keyCode == UP){
+      if(pageNumber > 0){
+        pageNumber --;      
+      }
+    }else if(keyCode == RIGHT || keyCode == DOWN){      
+      pageNumber ++;
+    }
+    
+    beginRecord(PDF, "her_weird_science_page_" + pageNumber + ".pdf");    
+    
+  }else if(key == ' '){
+//    save("her_weird_science_page_" + pageNumber + ".png");    
+    endRecord();
+    exit();
+//    loop();
+  }
+  println(pageNumber);
 }
 
