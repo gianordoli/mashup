@@ -27,13 +27,11 @@ void setup() {
   pageNumber = 1;
   leading = 24;
   totalHeight = (subs.size() + 2) * leading; 
-//  size(145*mm, 210*mm);
-  size(145*mm, totalHeight);
+  size(145*mm, 210*mm);  
 
   colorMode(HSB);  
   
-//  mapPos();
-  sortBy("time");
+  mapPos();
   
 }
 
@@ -41,29 +39,28 @@ void draw() {
   
   
   background(255);
+
   for(int i = 0; i < subs.size(); i++){
     Sub mySub = subs.get(i);
-//    mySub.pos.y = i * leading;
-    mySub.display();
-//    if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
-//      pushMatrix();
-//        translate(0, - height * (pageNumber - 1));
-//          mySub.display();
-//      popMatrix();
-//    }
+    if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
+      pushMatrix();
+        translate(0, - height * (pageNumber - 1));
+          mySub.display();
+      popMatrix();
+    }
   }  
 }
-//
-//void mapPos(){
-//  
-//  for (int i = 0; i < subs.size(); i++){
-//    Sub mySub = subs.get(i);
-//    PVector currPos = new PVector(0, map(mySub.time,
-//                                      subs.get(0).time, subs.get(subs.size()-1).time,
-//                                      0, totalHeight));
-//    mySub.setPos(currPos);    
-//  }
-//}
+
+void mapPos(){
+  
+  for (int i = 0; i < subs.size(); i++){
+    Sub mySub = subs.get(i);
+    PVector currPos = new PVector(0, map(mySub.time,
+                                      subs.get(0).time, subs.get(subs.size()-1).time,
+                                      0, totalHeight));
+    mySub.setPos(currPos);    
+  }
+}
 
 void debug(){
   for (int i = 0; i < subs.size(); i++) {
@@ -133,46 +130,4 @@ void keyPressed(){
   }
   println(pageNumber);
 }
-
-void sortBy(String comparator){
-  //Creating an empty array that will store the values
-  //we want to compare
-  int[] values = new int[subs.size()];
-  for(int i = 0; i < subs.size(); i++){
-    //We'l compare based on...?
-    if(comparator == "time"){
-      values[i] = subs.get(i).time;
-    }
-  }
-  //Sorting those values
-  values = sort(values);
-  values = reverse(values);
-  
-  //This temporary ArrayList will store the objects sorted
-  ArrayList<Sub> tempList = new ArrayList<Sub>();
-  
-  //Looping through each sorted value
-  for(int i = 0; i < values.length; i++){
-    //Looping through each object
-    for(int j = 0; j < subs.size(); j++){
-      //We'l compare based on...?
-      int objectValue = 0;
-      if(comparator == "time"){
-        objectValue = subs.get(j).time;  
-      }
-      
-      //If the sorted value is found...
-      if(values[i] == objectValue){
-        //Add the object to the temporary list and jump to the next iteration
-        tempList.add(subs.get(j));
-        subs.remove(subs.get(j));
-        break;
-      }
-    }
-  }
-  //Replace the original list with the sorted one
-  subs = tempList;
-  println(values);
-}
-
 
