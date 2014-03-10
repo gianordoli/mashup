@@ -1,5 +1,3 @@
-import processing.pdf.*;
-
 ArrayList<Sub> subs;
 PFont regular;
 PFont italic;
@@ -11,7 +9,7 @@ int totalHeight;
 
 
 void setup() {
- 
+  
 //  println(PFont.list());
     
   subs = new ArrayList<Sub>();
@@ -29,8 +27,7 @@ void setup() {
   pageNumber = 1;
   leading = 24;
   totalHeight = (subs.size() + 2) * leading; 
-  size(145*mm, 210*mm);
-  beginRecord(PDF, "her_weird_science_page_" + pageNumber + ".pdf");
+  size(145*mm, 210*mm);  
 
   colorMode(HSB);  
   
@@ -38,7 +35,8 @@ void setup() {
   
 }
 
-void draw() {  
+void draw() {
+  
   
   background(255);
 
@@ -126,15 +124,9 @@ void keyPressed(){
       }
     }else if(keyCode == RIGHT || keyCode == DOWN){      
       pageNumber ++;
-    }
-    
-    beginRecord(PDF, "her_weird_science_page_" + pageNumber + ".pdf");    
-    
+    }    
   }else if(key == ' '){
-//    save("her_weird_science_page_" + pageNumber + ".png");    
-    endRecord();
-    exit();
-//    loop();
+    save("her_weird_science_page_" + pageNumber + ".png");    
   }
   println(pageNumber);
 }
