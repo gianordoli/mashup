@@ -42,7 +42,6 @@ void setup() {
   regular = createFont("Didot", 12);
   italic = createFont("Didot-Italic", 12);  
   leading = 16; 
-  textLeading(leading); 
   
   //Margins
   hMargin = 20*mm;

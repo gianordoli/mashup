@@ -38,6 +38,7 @@ class Sub{
       textFont(regular);
     }
     textAlign(LEFT);
+    textLeading(leading); 
     text(myText, pos.x, pos.y, width - (2 * hMargin), 3*leading);
   }
 }

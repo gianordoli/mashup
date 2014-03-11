@@ -30,7 +30,7 @@ void setup() {
   mm = 3;
   
 //  size(120*mm, 180*mm);
-  size(120*mm, 180*mm, PDF, "filename.pdf");
+  size(120*mm, 180*mm, PDF, "her_weird_science.pdf");
 
   /*---------- DATA ----------*/    
   subs = new ArrayList<Sub>();
@@ -43,7 +43,6 @@ void setup() {
   regular = createFont("Didot", 12);
   italic = createFont("Didot-Italic", 12);  
   leading = 16; 
-  textLeading(leading); 
   
   //Margins
   hMargin = 20*mm;
