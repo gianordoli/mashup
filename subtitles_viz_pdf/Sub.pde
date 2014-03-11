@@ -37,6 +37,7 @@ class Sub{
     }else{
       textFont(regular);
     }
-    text(myText, pos.x, pos.y);
+
+    text(myText, pos.x, pos.y, width - (leftMargin + rightMargin), 3*leading);
   }
 }
