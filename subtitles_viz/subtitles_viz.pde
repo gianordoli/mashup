@@ -1,3 +1,5 @@
+import processing.pdf.*;
+
 ArrayList<Sub> subs;
 PFont regular;
 PFont italic;
@@ -7,6 +9,7 @@ int leading;
 int pageNumber;
 int totalHeight;
 
+boolean record;
 
 void setup() {
   
@@ -27,7 +30,8 @@ void setup() {
   pageNumber = 1;
   leading = 24;
   totalHeight = (subs.size() + 2) * leading; 
-  size(145*mm, 210*mm);  
+//  size(145*mm, 210*mm);
+  size(145*mm, totalHeight);
 
   colorMode(HSB);  
   
@@ -36,19 +40,30 @@ void setup() {
 }
 
 void draw() {
-  
+  if (record) {
+    beginRecord(PDF, "page_" + pageNumber + ".pdf"); 
+  }  
   
   background(255);
-
-  for(int i = 0; i < subs.size(); i++){
-    Sub mySub = subs.get(i);
-    if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
-      pushMatrix();
-        translate(0, - height * (pageNumber - 1));
-          mySub.display();
-      popMatrix();
-    }
-  }  
+  
+  pushMatrix();
+    translate(0, - height * (pageNumber - 1));
+  
+    for(int i = 0; i < subs.size(); i++){
+      Sub mySub = subs.get(i);
+  //    mySub.pos.y = i * leading;
+      mySub.display();
+      if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
+            mySub.display();
+      }
+    }  
+  
+  popMatrix();  
+  
+  if(record){
+    endRecord();
+    record = false;
+  }
 }
 
 void mapPos(){
@@ -126,8 +141,8 @@ void keyPressed(){
       pageNumber ++;
     }    
   }else if(key == ' '){
-    save("her_weird_science_page_" + pageNumber + ".png");    
+    record = true;
+//    save("her_weird_science_page_" + pageNumber + ".png");    
   }
   println(pageNumber);
 }
-

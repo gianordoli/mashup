@@ -32,7 +32,6 @@ void setup() {
 
   colorMode(HSB);  
   
-//  mapPos();
   sortBy("time");
   
 }
@@ -41,29 +40,13 @@ void draw() {
   
   
   background(255);
-  for(int i = 0; i < subs.size(); i++){
+//  for(int i = 0; i < subs.size(); i++){
+  for(int i = 0; i < 500; i++){  
     Sub mySub = subs.get(i);
-//    mySub.pos.y = i * leading;
+    mySub.pos.y = i * leading;
     mySub.display();
-//    if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
-//      pushMatrix();
-//        translate(0, - height * (pageNumber - 1));
-//          mySub.display();
-//      popMatrix();
-//    }
   }  
 }
-//
-//void mapPos(){
-//  
-//  for (int i = 0; i < subs.size(); i++){
-//    Sub mySub = subs.get(i);
-//    PVector currPos = new PVector(0, map(mySub.time,
-//                                      subs.get(0).time, subs.get(subs.size()-1).time,
-//                                      0, totalHeight));
-//    mySub.setPos(currPos);    
-//  }
-//}
 
 void debug(){
   for (int i = 0; i < subs.size(); i++) {
@@ -120,15 +103,16 @@ int toSeconds(String myTime) {
 }
 
 void keyPressed(){
-  if(key == CODED){    
-    if(keyCode == LEFT || keyCode == UP){
-      if(pageNumber > 0){
-        pageNumber --;      
-      }
-    }else if(keyCode == RIGHT || keyCode == DOWN){      
-      pageNumber ++;
-    }    
-  }else if(key == ' '){
+//  if(key == CODED){    
+//    if(keyCode == LEFT || keyCode == UP){
+//      if(pageNumber > 0){
+//        pageNumber --;      
+//      }
+//    }else if(keyCode == RIGHT || keyCode == DOWN){      
+//      pageNumber ++;
+//    }    
+//  }else 
+  if(key == ' '){
     save("her_weird_science_page_" + pageNumber + ".png");    
   }
   println(pageNumber);
