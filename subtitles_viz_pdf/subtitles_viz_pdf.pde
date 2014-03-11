@@ -9,6 +9,11 @@ int leading;
 int pageNumber;
 int totalHeight;
 
+int leftMargin;
+int rightMargin;
+int topMargin;
+int bottomMargin;
+
 boolean record;
 
 
@@ -25,14 +30,19 @@ void setup() {
   processSubs("weird_science", stringSubs1);  
   processSubs("her", stringSubs2);
   
-  regular = createFont("Didot", 16);
-  italic = createFont("Didot-Italic", 16);  
-  mm = 6;  
+  regular = createFont("Didot", 12);
+  italic = createFont("Didot-Italic", 12);  
+  mm = 3;  
   pageNumber = 1;
   leading = 24;
   record = false;
   totalHeight = (subs.size() + 2) * leading; 
-  size(145*mm, 210*mm);   
+  size(120*mm, 180*mm);   
+  
+  leftMargin = 20*mm;
+  rightMargin = 10*mm;
+  topMargin = 20*mm;
+  bottomMargin = 20*mm;  
   
   mapPos();
   
@@ -47,15 +57,19 @@ void draw() {
   background(255);
   colorMode(HSB); 
 
-  pushMatrix();
-    translate(0, - height * (pageNumber - 1));
+  int textHeight = height - (topMargin + bottomMargin);
 
-    for(int i = 0; i < subs.size(); i++){
-      Sub mySub = subs.get(i);
-      if(height * (pageNumber - 1) < mySub.pos.y && mySub.pos.y < height * pageNumber){
-            mySub.display();
+  pushMatrix();
+    translate(0, - textHeight * (pageNumber - 1));
+      translate(leftMargin, topMargin);
+
+      for(int i = 0; i < subs.size(); i++){
+        Sub mySub = subs.get(i);
+        if(textHeight * (pageNumber - 1) < mySub.pos.y &&
+           mySub.pos.y < textHeight * pageNumber){
+              mySub.display();
+        }
       }
-    }
 
   popMatrix();
   

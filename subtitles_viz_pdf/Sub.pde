@@ -24,13 +24,14 @@ class Sub{
     noStroke();
     if(movie == "weird_science"){
       fill(255, 255, 60);
-      pos.x = width*1/6;
+//      pos.x = width*1/6;
     }else if(movie == "her"){
       fill(255, 255, 200);
-      pos.x = width*3/6;
+//      pos.x = width*3/6;
     }
 //    pos.x = width*1/3;
 //    ellipse(pos.x, pos.y, size, size);
+//      pos.x = leftMargin;
       if(speech.indexOf("<i>") != -1){
         textFont(italic);
       }else{
