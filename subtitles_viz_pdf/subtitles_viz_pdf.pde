@@ -1,63 +1,75 @@
-import processing.pdf.*;
-
+/*---------- DATA ----------*/
 ArrayList<Sub> subs;
+
+/*-------- VISUALS ---------*/
+//Measurement unit
+int mm;
+
+//Typography
 PFont regular;
 PFont italic;
-int mm;
 int leading;
 
-int pageNumber;
-int totalHeight;
-
+//Margins
 int hMargin;
 int topMargin;
 int bottomMargin;
 
+//Pagination variables
+int totalHeight;
+int textHeight;
+int totalPages;
+int pageNumber;
+
+//PDF
+import processing.pdf.*;
 boolean record;
 
-
 void setup() {
+  //Measurement unit
+  mm = 3;
   
-//  println(PFont.list());
-    
-  subs = new ArrayList<Sub>();
+  size(120*mm, 180*mm);  
 
-//  String[] stringSubs1 = loadStrings("Gravity.2013.1080p.WEB-DL.H264-PublicHD.srt");
+  /*---------- DATA ----------*/    
+  subs = new ArrayList<Sub>();
   String[] stringSubs1 = loadStrings("Weird.Science.1985.720p.BluRay.x264.YIFY.srt");
-  String[] stringSubs2 = loadStrings("Her.2013.DVDSCR.XviD.MP3-RARBG.srt");
-//  processSubs("gravity", stringSubs1);  
+  String[] stringSubs2 = loadStrings("Her.2013.DVDSCR.XviD.MP3-RARBG.srt");  
   processSubs("weird_science", stringSubs1);  
   processSubs("her", stringSubs2);
   
+  //Typography
   regular = createFont("Didot", 12);
   italic = createFont("Didot-Italic", 12);  
-  mm = 3;  
-  pageNumber = 1;
-  leading = 16;
-  record = false;
-  totalHeight = (subs.size() + 2) * leading; 
-  size(120*mm, 180*mm);   
-  
-  hMargin = 20*mm;
-  topMargin = 10*mm;
-  bottomMargin = 24*mm; 
- 
+  leading = 16; 
   textLeading(leading); 
   
-  mapPos();
+  //Margins
+  hMargin = 20*mm;
+  topMargin = 10*mm;
+  bottomMargin = 24*mm;  
+
+  //Pagination variables
+  totalHeight = (subs.size() + 2) * leading;
+  textHeight = height - (topMargin + bottomMargin);
+  totalPages = ceil(totalHeight / textHeight);
+  pageNumber = 1;      
+
+  //PDF
+  record = false;
   
+  //Setting subs positions
+  mapPos();
 }
 
 void draw() {
   
   if(record){
-      beginRecord(PDF, "page_" + pageNumber + ".pdf");
+      beginRecord(PDF, "allPages.pdf");
   }
   
   background(255);
   colorMode(HSB); 
-
-  int textHeight = height - (topMargin + bottomMargin);
 
   pushMatrix();
     translate(0, - textHeight * (pageNumber - 1));
@@ -85,12 +97,15 @@ void draw() {
     pageNumberPos.x = width - hMargin / 2;
   }
   textAlign(CENTER);
-  text(pageNumber, pageNumberPos.x, pageNumberPos.y);
+  text(pageNumber, pageNumberPos.x, pageNumberPos.y);  
   
   if(record){
     endRecord();
     record = false;
   }
+  
+//  if(pageNumber < )
+//  pageNumber ++;
   
 }
 
