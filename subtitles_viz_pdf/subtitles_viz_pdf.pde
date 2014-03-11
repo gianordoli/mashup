@@ -102,11 +102,7 @@ void draw() {
   if(record){
     endRecord();
     record = false;
-  }
-  
-//  if(pageNumber < )
-//  pageNumber ++;
-  
+  }  
 }
 
 void mapPos(){
