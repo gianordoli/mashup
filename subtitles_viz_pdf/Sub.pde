@@ -30,7 +30,7 @@ class Sub{
     
     String myText = speech;
 
-    if(speech.indexOf("<i>") != -1){
+    if(speech.indexOf("<i") != -1){
       textFont(italic);
       myText = myText.substring(myText.indexOf(">") + 1); 
       myText = myText.substring(0, myText.indexOf("<"));      

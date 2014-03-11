@@ -60,6 +60,8 @@ void setup() {
   
   //Setting subs positions
   mapPos();
+  
+  println(totalPages);
 }
 
 void draw() {
@@ -96,7 +98,9 @@ void draw() {
   }else{
     pageNumberPos.x = width - hMargin / 2;
   }
+
   textAlign(CENTER);
+  textFont(regular);  
   text(pageNumber, pageNumberPos.x, pageNumberPos.y);  
   
   if(record){
@@ -173,11 +177,13 @@ int toSeconds(String myTime) {
 void keyPressed(){
   if(key == CODED){    
     if(keyCode == LEFT || keyCode == UP){
-      if(pageNumber > 0){
+      if(pageNumber > 1){
         pageNumber --;      
       }
-    }else if(keyCode == RIGHT || keyCode == DOWN){      
-      pageNumber ++;
+    }else if(keyCode == RIGHT || keyCode == DOWN){ 
+      if(pageNumber < totalPages - 1){     
+        pageNumber ++;
+      }
     }    
   }else if(key == ' '){
 //    save("her_weird_science_page_" + pageNumber + ".png");
