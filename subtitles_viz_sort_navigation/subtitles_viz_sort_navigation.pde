@@ -128,7 +128,6 @@ void mapPos(){
       y += leading;
     }
     
-    mySub.setPos(currPos);    
     mySub.setPos(currPos);   
   }
 }
