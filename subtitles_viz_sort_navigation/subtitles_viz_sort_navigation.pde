@@ -111,11 +111,23 @@ void draw() {
 }
 
 void mapPos(){
+  int y = 0;
   for (int i = 0; i < subs.size(); i++){
     Sub mySub = subs.get(i);
-    PVector currPos = new PVector(0, map(i,
-                                      0, subs.size() - 1,
-                                      0, totalHeight));
+//    PVector currPos = new PVector(0, map(i,
+//                                      0, subs.size() - 1,
+//                                      0, totalHeight));
+    PVector currPos = new PVector(0, y);
+    
+    String myText = mySub.speech;
+    textFont(regular);
+    float myWidth = textWidth(myText);
+    if(myWidth > width - (2 * hMargin)){
+      y += (2 * leading);
+    }else{
+      y += leading;
+    }
+    
     mySub.setPos(currPos);    
   }
 }
