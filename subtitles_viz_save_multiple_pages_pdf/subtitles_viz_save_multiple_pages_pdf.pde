@@ -29,7 +29,8 @@ void setup() {
   //Measurement unit
   mm = 3;
   
-  size(120*mm, 180*mm);  
+//  size(120*mm, 180*mm);
+  size(120*mm, 180*mm, PDF, "filename.pdf");
 
   /*---------- DATA ----------*/    
   subs = new ArrayList<Sub>();
@@ -66,9 +67,9 @@ void setup() {
 
 void draw() {
   
-  if(record){
-      beginRecord(PDF, "allPages.pdf");
-  }
+//  if(record){
+//      beginRecord(PDF, "allPages.pdf");
+//  }
   
   background(255);
   colorMode(HSB); 
@@ -98,15 +99,22 @@ void draw() {
   }else{
     pageNumberPos.x = width - hMargin / 2;
   }
-
   textAlign(CENTER);
   textFont(regular);  
   text(pageNumber, pageNumberPos.x, pageNumberPos.y);  
   
-  if(record){
-    endRecord();
-    record = false;
-  }  
+  PGraphicsPDF pdf = (PGraphicsPDF) g;  // Get the renderer
+  if(pageNumber < totalPages - 1){
+    pdf.nextPage();
+    pageNumber ++;    
+  }else{
+    exit();
+  }
+  
+//  if(record){
+//    endRecord();
+//    record = false;
+//  }  
 }
 
 void mapPos(){
