@@ -9,8 +9,7 @@ int leading;
 int pageNumber;
 int totalHeight;
 
-int leftMargin;
-int rightMargin;
+int hMargin;
 int topMargin;
 int bottomMargin;
 
@@ -34,15 +33,16 @@ void setup() {
   italic = createFont("Didot-Italic", 12);  
   mm = 3;  
   pageNumber = 1;
-  leading = 24;
+  leading = 16;
   record = false;
   totalHeight = (subs.size() + 2) * leading; 
   size(120*mm, 180*mm);   
   
-  leftMargin = 20*mm;
-  rightMargin = 10*mm;
-  topMargin = 20*mm;
-  bottomMargin = 20*mm;  
+  hMargin = 20*mm;
+  topMargin = 10*mm;
+  bottomMargin = 24*mm; 
+ 
+  textLeading(leading); 
   
   mapPos();
   
@@ -61,17 +61,31 @@ void draw() {
 
   pushMatrix();
     translate(0, - textHeight * (pageNumber - 1));
-      translate(leftMargin, topMargin);
+      
+      translate(hMargin, topMargin);
 
-      for(int i = 0; i < subs.size(); i++){
-        Sub mySub = subs.get(i);
-        if(textHeight * (pageNumber - 1) < mySub.pos.y &&
-           mySub.pos.y < textHeight * pageNumber){
-              mySub.display();
+        for(int i = 0; i < subs.size(); i++){
+          Sub mySub = subs.get(i);
+          if(textHeight * (pageNumber - 1) < mySub.pos.y &&
+             mySub.pos.y < textHeight * pageNumber){
+                mySub.display();
+          }
         }
-      }
 
   popMatrix();
+  
+  //PAGE NUMBER
+  fill(0);
+  PVector pageNumberPos = new PVector(0, height - (bottomMargin/2));
+  //Even page
+  if(pageNumber % 2 == 0){
+    pageNumberPos.x = hMargin / 2;
+  //Odd page
+  }else{
+    pageNumberPos.x = width - hMargin / 2;
+  }
+  textAlign(CENTER);
+  text(pageNumber, pageNumberPos.x, pageNumberPos.y);
   
   if(record){
     endRecord();

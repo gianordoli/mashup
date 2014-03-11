@@ -23,9 +23,9 @@ class Sub{
   void display(){
     noStroke();
     if(movie == "weird_science"){
-      fill(255, 255, 60);
+      fill(160, 200, 200);
     }else if(movie == "her"){
-      fill(255, 255, 200);
+      fill(240, 255, 200);
     }
     
     String myText = speech;
@@ -37,7 +37,7 @@ class Sub{
     }else{
       textFont(regular);
     }
-
-    text(myText, pos.x, pos.y, width - (leftMargin + rightMargin), 3*leading);
+    textAlign(LEFT);
+    text(myText, pos.x, pos.y, width - (2 * hMargin), 3*leading);
   }
 }
