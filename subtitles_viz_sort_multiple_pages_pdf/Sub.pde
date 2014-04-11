@@ -22,11 +22,12 @@ class Sub{
   
   void display(){
     noStroke();
-    if(movie == "weird_science"){
-      fill(160, 200, 200);
-    }else if(movie == "her"){
-      fill(240, 255, 200);
-    }
+//    if(movie == "weird_science"){
+//      fill(160, 200, 200);
+//    }else if(movie == "her"){
+//      fill(240, 255, 200);
+//    }
+    fill(0);
     
     String myText = speech;
 
