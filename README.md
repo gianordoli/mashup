@@ -1,6 +1,5 @@
 # Movie Mashup as a Book
 MFA Design and Technology, Parsons The New School for Design
-Bootcamp 2014
 
 Major Studio 2, Professor Ted Byfield
 
